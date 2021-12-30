@@ -1,5 +1,13 @@
-local function assert_throws(fn, args)
+--!strict
 
+local function assert_throws(
+  fn : any,
+  args : ({
+    args : ({ [number] : any } | nil),
+    err_msg: (string | nil),
+    err_stack_level : (number | nil)
+  } | nil)
+)
   local args = args or { args = nil, err_msg = nil, err_stack_level = nil }
 
   if xpcall(fn, debug.traceback, table.unpack(args.args or {})) then
